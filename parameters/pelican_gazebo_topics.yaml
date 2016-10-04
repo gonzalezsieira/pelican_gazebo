@@ -1,0 +1,11 @@
+model_name:               pelican
+world_name:               world
+
+
+subscribers:
+    gazebo_models:        /gazebo/model_states
+
+publishers:
+    tf:                   /tf
+    pose:                 /pelican/pose
+    velocity:             /pelican/twist

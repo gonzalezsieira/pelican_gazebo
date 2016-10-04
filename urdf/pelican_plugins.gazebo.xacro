@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  
+  <xacro:include filename="$(find pelican_gazebo)/urdf/pelican_controller.gazebo.xacro" />
+  <!--<xacro:include filename="$(find pelican_gazebo)/urdf/kinect.gazebo.xacro" />-->
+
+  <!-- Pelican Gazebo Plugins -->
+  
+  <xacro:pelican_controller />
+  <!--<xacro:kinect />-->
+
+</robot>
