@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- Topics management -->
+    <node pkg="pelican_gazebo" type="pelican_gazebo_topics.py" name="gazebo_topics" output="screen">
+      <rosparam file="$(find pelican_gazebo)/parameters/pelican_gazebo_topics.yaml" />
+      <remap from="/pelican/pose" to="/pelican/ekf" />
+    </node>
+
+</launch>

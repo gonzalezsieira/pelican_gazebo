@@ -10,7 +10,7 @@ node_name = 'gazebo_topics'
 
 class Publisher:
 
-    def __init__(self, robot_name, world_name, tf_publisher, pose_publisher, vel_publisher):
+    def __init__(self, robot_name, world_name, tf_publisher, pose_publisher, vel_publisher, cmd_publisher):
         """
         Initializes the publisher topics that will process the gazebo msg
         :param tf_publisher: publisher of the transform (TFMessage)
@@ -20,6 +20,7 @@ class Publisher:
         self.tf_publisher = tf_publisher
         self.pose_publisher = pose_publisher
         self.vel_publisher = vel_publisher
+        self.cmd_publisher = cmd_publisher
         self.robot_name = robot_name
         self.world_name = world_name
 
@@ -44,12 +45,6 @@ class Publisher:
                 self.robot_name,
                 self.world_name
             )
-            # Publish pose
-            msg = geometry_msgs.msg.PoseStamped()
-            msg.header.frame_id = self.world_name
-            msg.header.stamp = timestamp
-            msg.pose = pose
-            self.pose_publisher.publish(msg)
 
             # Publish twist
             msg = geometry_msgs.msg.TwistStamped()
@@ -58,8 +53,18 @@ class Publisher:
             msg.twist = vel
             self.vel_publisher.publish(msg)
 
+            # Publish PoseWithCovarianceStamped
+            msg = geometry_msgs.msg.PoseWithCovarianceStamped()
+            msg.header.frame_id = self.world_name
+            msg.header.stamp = timestamp
+            msg.pose.pose = pose
+            self.pose_publisher.publish(msg)
+
         else:
             rospy.logwarn('Model ' + self.robot_name + ' not in gazebo ModelStates')
+
+    def callback_cmd(self, msg):
+        self.cmd_publisher.publish(msg)
 
 
 def init_gazebo_topics():
@@ -73,7 +78,12 @@ def init_gazebo_topics():
     tf_publisher = tf.TransformBroadcaster()
     pose_publisher = rospy.Publisher(
         rospy.get_param('/' + node_name + '/publishers/pose'),
-        geometry_msgs.msg.PoseStamped,
+        geometry_msgs.msg.PoseWithCovarianceStamped,
+        queue_size=10
+    )
+    cmd_publisher = rospy.Publisher(
+        '/cmd_vel',
+        geometry_msgs.msg.Twist,
         queue_size=10
     )
     vel_publisher = rospy.Publisher(
@@ -85,12 +95,17 @@ def init_gazebo_topics():
     robot_name = rospy.get_param('/' + node_name + '/model_name')
     world_name = rospy.get_param('/' + node_name + '/world_name')
     # Create structure to publish
-    publishers = Publisher(robot_name, world_name, tf_publisher, pose_publisher, vel_publisher)
+    publishers = Publisher(robot_name, world_name, tf_publisher, pose_publisher, vel_publisher, cmd_publisher)
     # Create subscriber with this last structure
     rospy.Subscriber(
         rospy.get_param('/' + node_name + '/subscribers/gazebo_models'),
         gazebo_msgs.msg.ModelStates,
         publishers.callback_msg_model
+    )
+    rospy.Subscriber(
+        '/pelican/cmd',
+        geometry_msgs.msg.Twist,
+        publishers.callback_cmd
     )
     rospy.spin()
 

@@ -2,7 +2,7 @@
 
 <launch>
   <arg name="paused" default="false"/>
-  <arg name="use_sim_time" default="true"/>
+  <arg name="use_sim_time" default="false"/>
   <arg name="gui" default="true"/>
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
@@ -26,7 +26,4 @@
     <arg name="z" default="$(arg z)"/>  
   </include>
 
-  <node name="gazebo_topics" pkg="pelican_gazebo" type="pelican_gazebo_topics.py" output="screen">
-    <rosparam file="$(find pelican_gazebo)/parameters/pelican_gazebo_topics.yaml" />
-  </node>
 </launch>
