@@ -27,3 +27,24 @@ accessible way:
 * **/pelican/pose** (PoseStamped)
 
 Two last topics names can be changed in *parameters/pelican_gazebo_topics.yaml*.
+
+## How to install in ROS kinetic
+Execute the following commands:
+```bash
+# Enter "src" folder of your workspace
+roscd
+cd ../src
+
+# Clone repository "pelican_description"
+git clone https://gitlab.citius.usc.es/droneplan/pelican_description
+
+# Clone repository "hector_quadcopter", currently not available via apt-get
+git clone -b kinetic-devel https://github.com/tu-darmstadt-ros-pkg/hector_quadrotor.git
+
+# Install dependencies
+sudo apt-get install ros-kinetic-hector-pose-estimation ros-kinetic-hector-gazebo-plugins ros-kinetic-hardware-interface ros-kinetic-controller-interface ros-kinetic-gazebo-ros-control
+
+# Build workspace
+cd ..
+catkin_make
+```
