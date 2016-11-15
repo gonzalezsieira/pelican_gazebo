@@ -42,7 +42,7 @@ git clone https://gitlab.citius.usc.es/droneplan/pelican_description
 git clone -b kinetic-devel https://github.com/tu-darmstadt-ros-pkg/hector_quadrotor.git
 
 # Install dependencies of "hector_quadcopter"
-sudo apt-get install ros-kinetic-hector-pose-estimation ros-kinetic-hector-gazebo-plugins ros-kinetic-hardware-interface ros-kinetic-controller-interface ros-kinetic-gazebo-ros-control
+sudo apt-get install ros-kinetic-hector-pose-estimation ros-kinetic-hector-gazebo-plugins ros-kinetic-hardware-interface ros-kinetic-controller-interface ros-kinetic-gazebo-ros-control ros-kinetic-message-to-tf
 
 # Install general dependencies
 sudo apt-get install ros-kinetic-xacro
