@@ -30,7 +30,7 @@ cd ../src
 git clone https://gitlab.citius.usc.es/droneplan/pelican_description
 
 # Install dependencies
-sudo apt-get install ros-indigo-hector-quadrotor-controller ros-indigo-hector-quadrotor-model ros-indigo-message-to-tf ros-indigo-gazebo-ros-control ros-indigo-xacro
+sudo apt-get install ros-indigo-hector-quadrotor-controller ros-indigo-hector-quadrotor-controller-gazebo ros-indigo-hector-quadrotor-model ros-indigo-message-to-tf ros-indigo-gazebo-ros-control ros-indigo-xacro
 
 # Build workspace
 cd ..
