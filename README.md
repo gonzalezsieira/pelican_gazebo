@@ -6,15 +6,6 @@ model in the simulator Gazebo. This integration consists in:
 * Generic dynamics for UAVs applied to the Pelican model
 * Publishing pose, velocities and tf for simulated model
 
-## Dependencies
-To make this package work make sure you can access the 
-following packages from your ROS workspace:
-* xacro
-* hector_quadrotor_controller
-* hector_quadrotor_model
-* pelican_description
-
-
 ## Information about the model
 Gazebo publishes information about the model in the following topic:
 **/gazebo/model_states**, under model named **pelican**.
@@ -27,6 +18,24 @@ accessible way:
 * **/pelican/pose** (PoseStamped)
 
 Two last topics names can be changed in *parameters/pelican_gazebo_topics.yaml*.
+
+## How to install in ROS indigo
+Execute the following commands:
+```bash
+# Enter "src" folder of your workspace
+roscd
+cd ../src
+
+# Clone repository "pelican_description"
+git clone https://gitlab.citius.usc.es/droneplan/pelican_description
+
+# Install dependencies
+sudo apt-get install ros-indigo-hector-quadrotor-controller ros-indigo-hector-quadrotor-model ros-indigo-message-to-tf ros-indigo-gazebo-ros-control ros-indigo-xacro
+
+# Build workspace
+cd ..
+catkin_make
+```
 
 ## How to install in ROS kinetic
 Execute the following commands:
