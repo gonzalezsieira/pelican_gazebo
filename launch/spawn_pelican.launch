@@ -7,6 +7,9 @@
    <arg name="name" default="pelican"/>
    <arg name="model" default="$(find pelican_description)/urdf/pelican.gazebo.xacro"/>
    <arg name="tf_prefix" default="$(optenv ROS_NAMESPACE)"/>
+     <arg name="controllers" default="
+    controller/velocity
+    "/>
 
    <arg name="use_ground_truth_for_tf" default="true" />
    <arg name="use_ground_truth_for_control" default="true" />
@@ -58,7 +61,10 @@
      <param name="controller/state_topic" value="state" />
      <param name="controller/imu_topic" value="imu" />
    </group>
-   <include file="$(find hector_quadrotor_controller)/launch/controller.launch" />
+     <!-- load controllers -->
+    <include file="$(find hector_quadrotor_controllers)/launch/controller.launch">
+        <arg name="controllers" value="$(arg controllers)"/>
+    </include>
 
    <arg name="motors" default="robbe_2827-34_epp1045" />
    <rosparam command="load" file="$(find hector_quadrotor_model)/param/quadrotor_aerodynamics.yaml" />

@@ -4,8 +4,12 @@ world_name:               world
 
 subscribers:
     gazebo_models:        /gazebo/model_states
+    cmd:                  /pelican/cmd
 
 publishers:
     tf:                   /tf
     pose:                 /pelican/pose
     velocity:             /pelican/twist
+    cmd:                  /cmd_vel
+    cmd_mav:              /fcu/control
+    ekf:                  /filter/state
